@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: my-postgres
+    environment:
+      POSTGRES_DB: chengwu
+      POSTGRES_USER: chengwu
+      POSTGRES_PASSWORD: joo890117
+    ports:
+      - "5431:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: my-app
+    environment:
+      DB_HOST:  172.18.0.2 # 这里使用服务名称作为数据库主机地址，因为它们在同一个 Docker 网络中
+      DB_PORT: 5432
+      DB_USERNAME: chengwu
+      DB_PASSWORD: joo890117
+      DB_NAME: chengwu
+    depends_on:
+      - db # 告诉 Docker Compose 在启动 app 服务之前先启动 db 服务
+    ports:
+      - "8080:8080" # 如果你的应用程序监听了8080端口，映射到主机的8080端口

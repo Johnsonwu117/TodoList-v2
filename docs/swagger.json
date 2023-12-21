@@ -1,0 +1,269 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Swagger API.",
+        "title": "todoList demo",
+        "contact": {
+            "name": "todolist demo"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "paths": {
+        "/v1/todoList/": {
+            "get": {
+                "description": "查詢待辦事項",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member_Action"
+                ],
+                "summary": "Get a To-do list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事項id",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "事項",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "事項說明",
+                        "name": "description",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "截止日期",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "是否完成",
+                        "name": "completed",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "事項優先級",
+                        "name": "priority",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "新建待辦事項",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member_Action"
+                ],
+                "summary": "Create a new To-do list",
+                "parameters": [
+                    {
+                        "description": "新增事項結構檔",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/list.Create"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/todoList/:id": {
+            "put": {
+                "description": "更新代辦事項",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member_Action"
+                ],
+                "summary": "Update To-do list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事項id",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "description": "修改事項結構檔",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/list.Update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "刪除代辦事項",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member_Action"
+                ],
+                "summary": "Get a To-do list",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "事項id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/user/register": {
+            "post": {
+                "description": "新人員註冊",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Member"
+                ],
+                "summary": "Create a new Member",
+                "parameters": [
+                    {
+                        "description": "新增人員結構檔",
+                        "name": "*",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/member.Create"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "list.Create": {
+            "type": "object",
+            "properties": {
+                "completed": {
+                    "description": "是否完成",
+                    "type": "boolean"
+                },
+                "description": {
+                    "description": "事項說明",
+                    "type": "string"
+                },
+                "duedate": {
+                    "description": "截止日期",
+                    "type": "string"
+                },
+                "priority": {
+                    "description": "事項優先級",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "標題",
+                    "type": "string"
+                }
+            }
+        },
+        "list.Update": {
+            "type": "object",
+            "properties": {
+                "completed": {
+                    "description": "是否完成",
+                    "type": "boolean"
+                },
+                "description": {
+                    "description": "事項說明",
+                    "type": "string"
+                },
+                "duedate": {
+                    "description": "截止日期",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "事項id",
+                    "type": "integer"
+                },
+                "priority": {
+                    "description": "事項優先級",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "標題",
+                    "type": "string"
+                }
+            }
+        },
+        "member.Create": {
+            "type": "object",
+            "properties": {
+                "identify": {
+                    "type": "string"
+                },
+                "useremail": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "userpassword": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

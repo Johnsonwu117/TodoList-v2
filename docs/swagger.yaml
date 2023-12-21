@@ -1,0 +1,179 @@
+definitions:
+  list.Create:
+    properties:
+      completed:
+        description: 是否完成
+        type: boolean
+      description:
+        description: 事項說明
+        type: string
+      duedate:
+        description: 截止日期
+        type: string
+      priority:
+        description: 事項優先級
+        type: integer
+      title:
+        description: 標題
+        type: string
+    type: object
+  list.Update:
+    properties:
+      completed:
+        description: 是否完成
+        type: boolean
+      description:
+        description: 事項說明
+        type: string
+      duedate:
+        description: 截止日期
+        type: string
+      id:
+        description: 事項id
+        type: integer
+      priority:
+        description: 事項優先級
+        type: integer
+      title:
+        description: 標題
+        type: string
+    type: object
+  member.Create:
+    properties:
+      identify:
+        type: string
+      useremail:
+        type: string
+      username:
+        type: string
+      userpassword:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    name: todolist demo
+  description: Swagger API.
+  title: todoList demo
+  version: "1.0"
+paths:
+  /v1/todoList/:
+    get:
+      consumes:
+      - application/json
+      description: 查詢待辦事項
+      parameters:
+      - description: 事項id
+        in: query
+        name: id
+        type: string
+      - description: 事項
+        in: query
+        name: title
+        type: string
+      - description: 事項說明
+        in: query
+        name: description
+        type: string
+      - description: 截止日期
+        in: query
+        name: title
+        type: string
+      - description: 是否完成
+        in: query
+        name: completed
+        type: string
+      - description: 事項優先級
+        in: query
+        name: priority
+        type: string
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Get a To-do list
+      tags:
+      - Member_Action
+    post:
+      consumes:
+      - application/json
+      description: 新建待辦事項
+      parameters:
+      - description: 新增事項結構檔
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/list.Create'
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Create a new To-do list
+      tags:
+      - Member_Action
+  /v1/todoList/:id:
+    delete:
+      consumes:
+      - application/json
+      description: 刪除代辦事項
+      parameters:
+      - description: 事項id
+        in: query
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Get a To-do list
+      tags:
+      - Member_Action
+    put:
+      consumes:
+      - application/json
+      description: 更新代辦事項
+      parameters:
+      - description: 事項id
+        in: query
+        name: id
+        type: string
+      - description: 修改事項結構檔
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/list.Update'
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Update To-do list
+      tags:
+      - Member_Action
+  /v1/user/register:
+    post:
+      consumes:
+      - application/json
+      description: 新人員註冊
+      parameters:
+      - description: 新增人員結構檔
+        in: body
+        name: '*'
+        required: true
+        schema:
+          $ref: '#/definitions/member.Create'
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: Create a new Member
+      tags:
+      - Member
+swagger: "2.0"
